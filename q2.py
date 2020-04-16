@@ -13,6 +13,8 @@ class list_as_array:
         self.top= 0
         # top points to the index where the next number should be inserted:
 
+
+
     def auto_create(self):
         self.list[0] = random.randint(0, 20)
         for i in range (0, 10):
@@ -20,6 +22,7 @@ class list_as_array:
         self.top = 10
         print("The initial list is: ")
         self.display()
+
 
 
     def create(self):
@@ -47,12 +50,15 @@ class list_as_array:
         self.display()
 
 
+
     def display(self):
         length = len(self.list)
         for i in range (0, length):
             if self.list[i] is not None:
                 print(self.list[i], end=' ')
         print("\n")
+
+
 
     # Removes all instances of a number passed in as an argument
     def remove(self, removable):
@@ -62,6 +68,8 @@ class list_as_array:
                 self.list[i] = None
                 removed = 1
         return removed
+
+
 
     def prompt_for_remove(self):
         try:
@@ -74,6 +82,8 @@ class list_as_array:
         else:
             print("The number was not removed.")
 
+
+
     def find(self, search_value):
         found = 0
         print("self.top is ", self.top)
@@ -83,6 +93,8 @@ class list_as_array:
                 found = 1
                 return found
         return found
+
+
 
     def prompt_for_find(self):
         try:
@@ -94,10 +106,14 @@ class list_as_array:
             print(" not", end='')
         print(" found.")
 
+
+
     def update(self, incrementer):
         for i in range(0, self.top):
             if self.list[i] is not None:
                 self.list[i] += incrementer
+
+
 
     def prompt_for_update(self):
         try:
@@ -108,11 +124,14 @@ class list_as_array:
         print("This is the updated list: ")
         self.display()
 
+
+
     def sort(self):
         self.list = self._sort(0, self.top - 1)
         self.display()
 
 
+    # Recursive merge sort function
     def _sort(self, lower, upper):
         #print("lower: ", lower, " upper: ", upper)
         if lower >= upper:
@@ -123,13 +142,10 @@ class list_as_array:
         left = self._sort(lower, mid)
         right = self._sort(mid + 1, upper)
 
-
         if left is None:
             return right
-
         if right is None:
             return left
-
 
         # Merge lists:
         left_length = len(left)
@@ -150,8 +166,9 @@ class list_as_array:
             else:
                 merged.append(right[j])
                 j += 1
-        
         return merged
+
+
 
     def disp(self, displayable):
         length = len(displayable)
@@ -160,8 +177,17 @@ class list_as_array:
 
 
 
-            
-
+    def reverse(self):
+        length = len(self.list)
+        j = length - 1 
+        mid = int(length / 2)
+        for i in range(0, mid): 
+            move = self.list[i]
+            self.list[i] = self.list[j]
+            self.list[j] = move
+            j -= 1
+        print("The reversed list: ")
+        self.display()
 
 
 
@@ -172,18 +198,7 @@ my_list = list_as_array()
 
 my_list.auto_create()
 
-my_list.sort()
-print("The sorted list: ")
-my_list.display()
-
-#my_list.prompt_for_find()
-
-#my_list.prompt_for_remove()
-#my_list.display()
-
-
-#my_list.prompt_for_update()
-
+my_list.reverse()
 
 
 
