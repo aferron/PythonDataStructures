@@ -116,6 +116,8 @@ class Stack:
 
     # Removes the last value added to the stack, returning the value
     def pop(self):
+        if self.head is None:
+            return None
         popped = self.head.pop()
         if self.head.peek() is None:
             remove = self.head
@@ -193,47 +195,47 @@ class Stack:
 
 
 
+    def test(self):
 
-# Seed the random number generator
-random.seed()
+        # Seed the random number generator
+        random.seed()
 
-# Create a class instance
-info = Stack()
+        # Create a class instance
+        info = Stack()
 
+        # Test peek with no data in stack:
+        print("Peeking: ", info.peek())
 
-# Test peek with no data in stack:
-print("Peeking: ", info.peek())
+        # Test random create and display
+        info.random_create()
+        print("The stack: ")
+        info.display()
 
-# Test random create and display
-info.random_create()
-print("The stack: ")
-info.display()
+        # Test peek
+        print("Peeking: ", info.peek())
 
-# Test peek
-print("Peeking: ", info.peek())
+        # Test pop
+        print("Popping:")
+        pop_times = random.randint(1, 5)
+        for i in range(0, pop_times): 
+            print(info.pop())
+        print("The stack: ")
+        info.display()
 
-# Test pop
-print("Popping:")
-pop_times = random.randint(1, 5)
-for i in range(0, pop_times): 
-    print(info.pop())
-print("The stack: ")
-info.display()
-
-# Test peek
-print("Peeking: ", info.peek())
-
-
-# Let the user experience push, peek, and pop:
-push_value = int(input("Enter a number to push onto the stack: "))
-info.push(push_value)
-print("The stack is now: ")
-info.display()
-print("Peeking: ", info.peek())
-print("Popping, the value returned is: ", info.pop())
+        # Test peek
+        print("Peeking: ", info.peek())
 
 
-# Test remove all
-info.remove_all()
-print("The stack after remove all: ")
-info.display()
+        # Let the user experience push, peek, and pop:
+        push_value = int(input("Enter a number to push onto the stack: "))
+        info.push(push_value)
+        print("The stack is now: ")
+        info.display()
+        print("Peeking: ", info.peek())
+        print("Popping, the value returned is: ", info.pop())
+
+
+        # Test remove all
+        info.remove_all()
+        print("The stack after remove all: ")
+        info.display()
