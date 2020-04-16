@@ -5,7 +5,7 @@
 # functions to display, remove all, remove one, find, and increment (update) the
 # list by an entered number.
 
-
+import pdb
 import random
 random.seed()
 class Node:
@@ -29,10 +29,13 @@ class SLL:
         self.head = None
 
 
+
     # Display function calls the recursive display function
     # It returns the number of items displayed
     def display(self):
         return self._display(self.head)
+
+
 
     # Resursive display function returns the number of items displayed
     def _display(self, head):
@@ -43,9 +46,20 @@ class SLL:
 
 
 
+    # Displays a list with the list head given as an argument
+    def disp(self, head):
+        if head is None:
+            print()
+            return
+        print(head.data, " ", end='')
+        return self.disp(head.next)
+        
+
+
     # Remove all is simple with garbage collection
     def remove_all(self):
         self.head = None
+
 
 
     # Build function creates a random number of nodes between 0 and 10
@@ -55,6 +69,8 @@ class SLL:
         self.head = Node(random.randint(0, 100))
         self._build(self.head, 0, nodes)
         return self
+
+
 
     # Recursive build function assigns a random number to each node
     def _build(self, head, count, max_nodes):
@@ -70,6 +86,8 @@ class SLL:
     def remove(self, removable):
         self.head = self._remove(self.head, removable)
         return 
+
+
 
     # Recursive remove function unlinks a node if it contains the same 
     # data as what was entered by the user
@@ -93,19 +111,24 @@ class SLL:
             list_A.display()
 
 
-    # Insert function adds a node to the end of the list
+
+    # Insert at end function adds a node to the end of the list
     # It could make more sense to add to the start of the list
-    def insert(self, insertable):
+    def insert_at_end(self, insertable):
         self.head = self._insert(self.head, insertable)
 
-    # Resursive insert function traverses to the end and adds a node there
+
+
+    # Resursive insert at end function traverses to the end and adds a node there
     # with the value entered by the user
-    def _insert(self, head, insertable):
+    def _insert_at_end(self, head, insertable):
         if head is None:
             head = Node(insertable)
             return head
         head.next = self._insert(head.next, insertable)
         return head
+
+
 
     # Prompt function interfaces with the user to get a value to insert, 
     # checks for errors in the value entered, and calls the insert function.
@@ -135,6 +158,8 @@ class SLL:
     def find(self, search_value):
         return self._find(self.head, search_value)
 
+
+
     # Recursive find function traverses the list, returning 1 if the value
     # entered by the user was found and 0 if not
     def _find(self, head, search_value):
@@ -143,6 +168,8 @@ class SLL:
         if head.data == search_value:
             return 1
         return self._find(head.next, search_value)
+
+
 
     # Prompt function interfaces with the user to get a value to find, 
     # checks the value entered to be sure it is an int, and calls the find function
@@ -164,6 +191,8 @@ class SLL:
     def increment(self, incrementer):
         head = self._increment(self.head, incrementer)
 
+
+
     # Recursive increment function traverses the list, adding the value entered by
     # the user to the data value in each node
     def _increment(self, head, incrementer):
@@ -172,6 +201,8 @@ class SLL:
         head.data += incrementer
         head.next = self._increment(head.next, incrementer)
         return head
+
+
 
     # Prompt function interfaces with the user to get a value to increment the list by,
     # performs error checking, calls the increment function, and displays the list 
@@ -183,6 +214,204 @@ class SLL:
         list_A.increment(incrementer)
         print("This is the list after incrementing:")
         list_A.display()
+
+
+
+    # Push adds a node at the head of the list, with data input by the user.
+    def push(self, pushable):
+        temp = self.head
+        self.head = Node(pushable)
+        self.head.next = temp
+
+
+
+    # Prompt for push interfaces with the user to get a value to push.
+    def prompt_for_push(self):
+        try:
+            pushable = int(input("Enter an integer value to add to the list: "))
+        except ValueError:
+            print("Must be an integer, cannot add to the list.")
+            return
+        self.push(pushable)
+        print("This is the list:")
+        list_A.display()
+        print()
+
+
+
+    # Pop removes the last node from the list
+    def pop(self):
+        self.head = self._pop(self.head)
+        print("This is the list after removing: ")
+        self.display()
+        
+
+
+    # Recursive pop function traverses to the end of the list and removes the last node
+    def _pop(self, head):
+        if head is None:
+            return head
+        if head.next is None:
+            return None
+        head.next = self._pop(head.next)
+        return head
+
+
+    # Sort function makes an array from the linked list, sorts it, and re-connects the list
+    def sort(self):
+        array_list = []
+        self.make_array(self.head, array_list, 0)
+        length = len(array_list)
+        array_list = self._sort(array_list, 0, length - 1)
+        for i in range (0, length - 1):
+            array_list[i].next = array_list[i + 1]
+        print("The sorted list: ")
+        self.display()
+        print()
+
+
+    # Makes an array from a linked list
+    def make_array(self, head, array, i):
+        if head is None:
+            return
+        array.append(head)
+        self.make_array(head.next, array, i + 1)
+        head.next = None
+
+
+
+    # Recursive merge sort function
+    def _sort(self, array, lower, upper):
+        #print("lower: ", lower, " upper: ", upper)
+        if lower >= upper:
+            #print (self.list[lower], ' ', end='')
+            mini_list = [array[lower]]
+            return mini_list
+        mid = lower + int((upper - lower)/2)
+        left = self._sort(array, lower, mid)
+        right = self._sort(array, mid + 1, upper)
+
+        if left is None:
+            return right
+        if right is None:
+            return left
+
+        # Merge lists:
+        left_length = len(left)
+        right_length = len(right)
+        merged = list() 
+        i = 0
+        j = 0
+        while i < left_length or j < right_length:
+            if i == left_length:
+                merged.append(right[j])
+                j += 1
+            elif j == right_length:
+                merged.append(left[i])
+                i += 1
+            elif left[i].data < right[j].data:
+                merged.append(left[i])
+                i += 1
+            else:
+                merged.append(right[j])
+                j += 1
+        return merged
+
+    # Reverses the list
+    def reverse(self):
+        self._reverse(self.head)
+
+    def _reverse(self, head):
+        if head is None:
+            return None
+        head.next = self._reverse(head.next)
+        if head.next is not None:
+            head.next.next = head
+            head.next = None
+        else:
+            self.head = head
+        return head
+
+
+
+    # Return value is a node pointer
+    def _get_mid(self, head, location, target):
+        if head is None:
+            return None
+        if location == target:
+            return head
+        return self._get_mid(head.next, location + 1, target)
+
+
+    # Length of the list is returned
+    def len(self, head):
+        if head is None:
+            return 0
+        return 1 + self.len(head.next)
+
+
+    def sort(self):
+        length = self.len(self.head)
+        mid = int(length / 2)
+        self.head = self._sort(self, self.head, location, 0, length)
+
+    def _sort(self, head, location, low, high):
+        if head is None:
+            return None
+        if low <= high:
+            single_node = Node(head.data)
+            return single_node
+           
+        mid_index = int((high - low) / 2)
+        left = self._sort(head, location, low, mid_index)
+        mid = self._get_mid(head, location, mid_index)
+
+        right = self._sort(head, location,low, high)
+
+        
+
+
+
+
+    def merge(self, other_list): 
+        if self.head is None:
+            self.head = copy(other_list)
+        if other_list.head is None:
+            return
+        self.head = self._merge(self.head, other_list.head)
+
+
+    def _merge(self, head_a, head_b):
+        if head_a is None and head_b is None:
+            return None
+        if head_a is None:
+            return head_b
+        if head_b is None:
+            return head_a
+        if head_a.data <= head_b.data:
+            head_a.next = self._merge(head_a.next, head_b)
+            return head_a
+        if head_b.data < head_a.data:
+            head_b.next = self._merge(head_a, head_b.next)
+            return head_b
+    
+    def copy(self, source):
+        if source.head is None:
+            return
+        if self.head is not None:
+            self.head = None
+        self.head = self._copy(self.head, source.head)
+
+    def _copy(self, dest, source):
+        if source is None:
+            return None
+        dest = Node(source.data)
+        dest.next = self._copy(dest.next, source.next)
+        return dest
+        
+
+
+
         
 
 
@@ -190,23 +419,45 @@ class SLL:
 list_A = SLL()
 
 list_A.build()
-print("This is the automatically created list:")
+list_A.sort()
+print()
+
+list_B = SLL()
+list_B.build()
+list_B.sort()
+print()
+
+list_A.merge(list_B)
+print("This is list A:")
 list_A.display()
 print()
 
-list_A.remove_all()
-print("This is the list after remove all:")
-list_A.display()
-print()
 
-list_A.prompt_for_insert()
+#list_A.reverse()
+#print("This is the reversed list: ")
+#list_A.display()
 
-list_A.prompt_for_remove()
 
-list_A.prompt_for_find()
+#pdb.set_trace()
+#list_A.sort()
 
-list_A.prompt_for_increment()
+#list_A.prompt_for_push()
 
-print()
+#list_A.pop()
+
+#list_A.remove_all()
+#print("This is the list after remove all:")
+#list_A.display()
+#print()
+
+#list_A.prompt_for_insert()
+
+#list_A.prompt_for_remove()
+
+#list_A.prompt_for_find()
+
+#list_A.prompt_for_increment()
+
+#print()
 
 
