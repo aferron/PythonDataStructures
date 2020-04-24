@@ -13,11 +13,8 @@ class list_as_array:
         self.top= 0
         # top points to the index where the next number should be inserted:
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def auto_create(self):
         self.list[0] = random.randint(0, 20)
         for i in range (0, 10):
@@ -27,10 +24,7 @@ class list_as_array:
         self.display()
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def create(self):
         valid = 1
         try:
@@ -56,10 +50,7 @@ class list_as_array:
         self.display()
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def display(self):
         length = len(self.list)
         for i in range (0, length):
@@ -67,11 +58,8 @@ class list_as_array:
                 print(self.list[i], end=' ')
         print("\n")
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     # Removes all instances of a number passed in as an argument
     def remove(self, removable):
         removed = 0
@@ -81,11 +69,8 @@ class list_as_array:
                 removed = 1
         return removed
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def prompt_for_remove(self):
         try:
             removable = int(input("Enter the number you would like to remove: "))
@@ -97,11 +82,8 @@ class list_as_array:
         else:
             print("The number was not removed.")
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def find(self, search_value):
         found = 0
         print("self.top is ", self.top)
@@ -112,11 +94,8 @@ class list_as_array:
                 return found
         return found
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def prompt_for_find(self):
         try:
             search_value = int(input("Enter a integer value to find in the list: "))
@@ -127,21 +106,15 @@ class list_as_array:
             print(" not", end='')
         print(" found.")
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def update(self, incrementer):
         for i in range(0, self.top):
             if self.list[i] is not None:
                 self.list[i] += incrementer
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def prompt_for_update(self):
         try:
             incrementer = int(input("Enter an integer amount to increment the list by: "))
@@ -151,20 +124,14 @@ class list_as_array:
         print("This is the updated list: ")
         self.display()
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def sort(self):
         self.list = self._sort(0, self.top - 1)
         self.display()
 
 
-<<<<<<< HEAD
     # Recursive merge sort function
-=======
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def _sort(self, lower, upper):
         #print("lower: ", lower, " upper: ", upper)
         if lower >= upper:
@@ -175,22 +142,11 @@ class list_as_array:
         left = self._sort(lower, mid)
         right = self._sort(mid + 1, upper)
 
-<<<<<<< HEAD
         if left is None:
             return right
         if right is None:
             return left
 
-=======
-
-        if left is None:
-            return right
-
-        if right is None:
-            return left
-
-
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
         # Merge lists:
         left_length = len(left)
         right_length = len(right)
@@ -210,16 +166,10 @@ class list_as_array:
             else:
                 merged.append(right[j])
                 j += 1
-<<<<<<< HEAD
         return merged
 
 
 
-=======
-        
-        return merged
-
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
     def disp(self, displayable):
         length = len(displayable)
         for i in range(0, length):
@@ -227,35 +177,10 @@ class list_as_array:
 
 
 
-<<<<<<< HEAD
-    def reverse(self):
-        length = len(self.list)
-        j = length - 1 
-        mid = int(length / 2)
-        for i in range(0, mid): 
-            move = self.list[i]
-            self.list[i] = self.list[j]
-            self.list[j] = move
-            j -= 1
-        print("The reversed list: ")
-        self.display()
-=======
-            
-
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
-
-
-
-
-
-
 my_list = list_as_array()
 
 my_list.auto_create()
 
-<<<<<<< HEAD
-my_list.reverse()
-=======
 my_list.sort()
 print("The sorted list: ")
 my_list.display()
@@ -268,7 +193,6 @@ my_list.display()
 
 #my_list.prompt_for_update()
 
->>>>>>> 80606551f53740a75ef841cf68adbc0f8d8a3778
 
 
 
