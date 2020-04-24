@@ -86,8 +86,13 @@ class Queue:
         
 
 
+<<<<<<< HEAD
 #data = Queue()        
 #data.test()
+=======
+data = Queue()        
+data.test()
+>>>>>>> 403aebc203974a6161c55ab3694210d90f38b2c7
 
 
 
