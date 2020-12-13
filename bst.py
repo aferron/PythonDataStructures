@@ -6,10 +6,10 @@ from queue import Queue
 random.seed()
 
 class TreeNode:
-    def __init__(self):
-        self.data = random.randint(0, 100)
-        self.left = None
-        self.right = None
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
     def set_left(self, node):
         self.left = node
@@ -24,7 +24,7 @@ class BST:
     def build(self):
         nodes = random.randint(1, 30)
         for x in range (0, nodes):
-            insertable = TreeNode()
+            insertable = TreeNode(random.randint(-(2**31), (2**31) - 1))
             self.root = self.insert(insertable)
         return nodes
 
@@ -39,7 +39,7 @@ class BST:
         if root is None:
             root = insertable
             return root
-        if root.data < insertable.data:
+        if root.val < insertable.val:
             root.set_right(self._insert(root.right, insertable))
         else:
             root.set_left(self._insert(root.left, insertable))
@@ -54,7 +54,7 @@ class BST:
         if root is None:
             return 0
         self.display_all(root.left)
-        print(root.data, end =" ")
+        print(root.val, end =" ")
         return 1 + self.display_all(root.right)
 
     def display_pretty(self):
@@ -76,7 +76,7 @@ class BST:
                     b.put(displayable.left)
                 if displayable.right:
                     b.put(displayable.right)
-                print(displayable.data, end =" ")
+                print(displayable.val, end =" ")
                 count += 1
 
             print("\n")
@@ -87,7 +87,7 @@ class BST:
                     a.put(displayable.left)
                 if displayable.right:
                     a.put(displayable.right)
-                print(displayable.data, end =" ")
+                print(displayable.val, end =" ")
                 count += 1
 
             print("\n")
@@ -104,8 +104,8 @@ class BST:
         if root is None:
             return True
         valid = self._isValidBST(root.left, prev)
-        valid = valid and (prev["visited"] == None or prev["visited"] < root.data)
-        prev["visited"] = root.data
+        valid = valid and (prev["visited"] == None or prev["visited"] < root.val)
+        prev["visited"] = root.val
         return valid and self._isValidBST(root.right, prev)
 
 
@@ -115,7 +115,7 @@ class BST:
 
 tree = BST()
 print ("Number of nodes in the tree is ", tree.build())
-#print ("Root's data is ", tree.root.data)
+#print ("Root's val is ", tree.root.val)
 tree.display()
 print ("Number of nodes displayed is ", tree.display_pretty())
 if tree.isValid():
